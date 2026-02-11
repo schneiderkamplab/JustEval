@@ -1,0 +1,38 @@
+task: binary_classification # changed
+dataset_path: giannor/dala
+dataset_name: null
+output_type: generate_until
+training_split: train
+validation_split: val
+test_split: test
+
+# Input prompt matching original dataset column names
+doc_to_text: |
+  Overvej denne danske sætning og tjek om den er grammatisk korrekt eller forkert.
+
+  Regler:
+  - Hvis sætningen er korrekt, skal du skrive "korrekt"
+  - Hvis sætningen er forkert, skal du skrive "forkert"
+  - Udskriv kun én af "korrekt" og "forkert"
+  - Udskriv ikke noget andet
+  - Udgiv ingen begrundelse eller forklaring
+
+  Sætning: {{text}}
+  Svar: 
+
+# Dummy target (required but won't be used)
+doc_to_target: 0
+
+generation_kwargs:
+  max_gen_toks: 100
+  temperature: 0.7
+  do_sample: true
+
+# Use bypass metric to skip evaluation
+metric_list:
+  - metric: bypass
+    aggregation: bypass
+
+metadata:
+  version: 1.0
+  description: "DaLA generative"
