@@ -1,4 +1,4 @@
-task: binary_classification # changed
+task: binary_classification_generation
 dataset_path: giannor/dala
 dataset_name: null
 output_type: generate_until

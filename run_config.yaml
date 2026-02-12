@@ -3,7 +3,7 @@ model: vllm
 model_args: "pretrained=meta-llama/Meta-Llama-3-8B-Instruct,dtype=float16,tensor_parallel_size=1"
 
 # Task configuration
-tasks: open_generation_task
+tasks: binary_classification_generation
 include_path: ./
 
 # Execution settings
