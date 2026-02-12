@@ -16,6 +16,14 @@ pip install "lm_eval[hf,vllm,api]"
 
 Every other library (e.g. transformers, vllm, pytorch, etc.) will be installed as dependencies automatically.
 
+## Run
+
+Once you defined your dataset and run configuration files (as described in the next section), you can run the evaluation with the following command:
+
+```bash
+lm-eval run --config eval_config.yaml
+```
+
 ## Configuration files
 
 NOTE: the following documentation is based on lm-evaluation-harness library. For more info on listed or additional fields check their [docs](https://github.com/EleutherAI/lm-evaluation-harness/tree/main/docs). In particular:
