@@ -21,10 +21,10 @@ doc_to_text: |
   Sætning: {{text}}
   Svar: 
 
-# doc_to_target: "{{label_da}}"
+doc_to_target: "{{label_da}}"
 
 # Two choices for binary classification
-doc_to_choice: ["forkert", "korrekt"]
+# doc_to_choice: ["forkert", "korrekt"]
 
 generation_kwargs:
   max_gen_toks: 100
@@ -34,7 +34,7 @@ generation_kwargs:
 # Use bypass metric to skip evaluation
 metric_list:
   - metric: bleu
-    aggregation: mean
+    aggregation: bleu
     higher_is_better: true
   - metric: exact_match
     aggregation: mean
