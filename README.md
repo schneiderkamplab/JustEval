@@ -21,7 +21,7 @@ Every other library (e.g. transformers, vllm, pytorch, etc.) will be installed a
 Once you defined your dataset and run configuration files (as described in the next section), you can run the evaluation with the following command:
 
 ```bash
-lm-eval run --config eval_config.yaml
+lm-eval run --config <run_config_file>
 ```
 
 ## Configuration files
