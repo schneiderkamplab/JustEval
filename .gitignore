@@ -1,7 +1,8 @@
 .idea
 .vscode
-generation/dala_outputs/
+generation/outputs/
 generation/dala_outputs_with_eval/
 ignore/
 evaluation/test.py
 generation/preprocess_targets_example.py
+evaluation/__pycache__/
