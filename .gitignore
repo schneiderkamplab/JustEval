@@ -1,7 +1,7 @@
 .idea
 .vscode
-generate/dala_outputs/
-generate/dala_outputs_with_eval/
+generation/dala_outputs/
+generation/dala_outputs_with_eval/
 ignore/
-evaluate/test.py
-generate/preprocess_targets_example.py
+evaluation/test.py
+generation/preprocess_targets_example.py
