@@ -1,7 +1,7 @@
-task: gen_binary_classification_with_metrics
+task: mc_binary_classification_with_metrics
 dataset_path: giannor/dala_label_da
 dataset_name: null
-output_type: generate_until
+output_type: multiple_choice
 training_split: train
 validation_split: val
 test_split: test
@@ -14,30 +14,36 @@ doc_to_text: |
   Regler:
   - Hvis sætningen er korrekt, skal du skrive "korrekt"
   - Hvis sætningen er forkert, skal du skrive "forkert"
-  - Udskriv kun én af "korrekt" og "forkert"
-  - Udskriv ikke noget andet
-  - Udgiv ingen begrundelse eller forklaring
 
   Sætning: {{text}}
   Svar: 
 
-doc_to_target: "{{label_da}}"
+# - Udskriv kun én af "korrekt" og "forkert"
+# - Udskriv ikke noget andet
+# - Udgiv ingen begrundelse eller forklaring
+
+
+# Map label to choice index (0 or 1)
+doc_to_target: "{{label}}"
 
 # Two choices for binary classification
-# doc_to_choice: ["forkert", "korrekt"]
+doc_to_choice: ["forkert", "korrekt"]
 
 generation_kwargs:
-  max_gen_toks: 100
-  temperature: 0.7
+  max_gen_toks: 50
+  temperature: 0.0
   do_sample: true
 
 # Use bypass metric to skip evaluation
 metric_list:
-  - metric: bleu
-    aggregation: bleu
-    higher_is_better: true
-  - metric: exact_match
+  - metric: acc
     aggregation: mean
+    higher_is_better: true
+  - metric: f1
+    aggregation: f1
+    higher_is_better: true
+  - metric: mcc
+    aggregation: mcc
     higher_is_better: true
 
 metadata:

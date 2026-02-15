@@ -1,25 +1,27 @@
 # Model configuration
 model: vllm
-model_args: "pretrained=meta-llama/Meta-Llama-3-8B-Instruct,dtype=float16,tensor_parallel_size=1"
+# model_args: "pretrained=meta-llama/Meta-Llama-3-8B-Instruct,dtype=float16,tensor_parallel_size=1"
+model_args: "pretrained=google/gemma-3-12b-it"
+
+
 
 # Task configuration
-tasks: binary_classification_generation
+tasks: mc_binary_classification_with_metrics
 include_path: ./
 
 # Execution settings
 batch_size: 16
 device: cuda:0
-limit: 5  # null = no limit, or set a number
+limit: 50  # null = no limit, or set a number
 
 # Output and logging
-output_path: ./dala_outputs/
+output_path: ./dala_outputs_with_eval/
 log_samples: true
-predict_only: true
+predict_only: false
 
 # Generation settings (can override task defaults)
 gen_kwargs:
   max_gen_toks: 50
-  temperature: 0.1
   until: ["\n"]  # Stop generation at newline
 
 # Other settings
