@@ -67,25 +67,3 @@ def load_generations(model_id: str, task: str, gen_path: str = None, single_resp
             results.append(entry)
     
     return results, metadata
-
-
-def main():
-    # Example usage with automatic path discovery
-    model_id = "meta-llama/Meta-Llama-3-8B-Instruct"
-    task = "gec_open_generation"
-    
-    generations, metadata = load_generations(model_id, task)
-    
-    # Print metadata
-    print("Metadata:")
-    print(json.dumps(metadata, indent=2, ensure_ascii=False))
-    print("\n")
-    
-    # Print the first few entries to verify
-    for i, gen in enumerate(generations[:5]):
-        print(f"Entry {i+1}:")
-        print(json.dumps(gen, indent=2, ensure_ascii=False))
-        print("\n")
-
-if __name__ == "__main__":
-    main()
