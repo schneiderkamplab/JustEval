@@ -1,3 +1,5 @@
 .idea
-dala_outputs/
+.vscode
+generate/dala_outputs/
+generate/dala_outputs_with_eval/
 ignore/
