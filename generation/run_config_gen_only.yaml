@@ -12,7 +12,7 @@ device: cuda:0
 limit: 100  # null = no limit, or set a number
 
 # Output and logging
-output_path: ./dala_outputs/
+output_path: ./outputs/
 log_samples: true
 predict_only: true
 
