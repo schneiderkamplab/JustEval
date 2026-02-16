@@ -10,6 +10,7 @@ include_path: ../task_configs
 tasks:
 - gec_dala
 - cls-gen_dala
+- culture_daisy
 batch_size: 16
 device: cuda:0
 limit: 100
