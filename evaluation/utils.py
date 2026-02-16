@@ -1,5 +1,40 @@
 import json
 import os
+from pathlib import Path
+
+def find_model_folder(model_id: str, outputs_base: str = "generation/outputs") -> str:
+    """
+    Find the actual model folder using case-insensitive matching.
+    
+    Args:
+        model_id: Model name from config (e.g., 'meta-llama/meta-llama-3-8b-instruct')
+        outputs_base: Base outputs directory path
+        
+    Returns:
+        Full path to the actual model folder
+        
+    Raises:
+        FileNotFoundError: If no matching folder is found
+    """
+    outputs_dir = Path(outputs_base)
+    if not outputs_dir.exists():
+        raise FileNotFoundError(f"Outputs directory not found: {outputs_base}")
+    
+    # Convert model_id to expected folder name format
+    model_folder_name = model_id.replace('/', '__')
+    
+    # Try exact match first
+    exact_match = outputs_dir / model_folder_name
+    if exact_match.exists() and exact_match.is_dir():
+        return str(exact_match)
+    
+    # Try case-insensitive match
+    model_folder_lower = model_folder_name.lower()
+    for subdir in outputs_dir.iterdir():
+        if subdir.is_dir() and subdir.name.lower() == model_folder_lower:
+            return str(subdir)
+    
+    raise FileNotFoundError(f"No output folder found for model '{model_id}' (looking for '{model_folder_name}')")
 
 def load_generations(model_id: str, task: str, gen_path: str = None, single_resp: bool = True):
     results = []
@@ -9,7 +44,8 @@ def load_generations(model_id: str, task: str, gen_path: str = None, single_resp
     if gen_path is None:
         partial_generation_path = f"samples_{task}_"
 
-        outputs_folder = f"{outputs_folder}/{model_id.replace('/', '__')}"
+        # Find the actual model folder using case-insensitive matching
+        outputs_folder = find_model_folder(model_id, outputs_folder)
 
         most_recent_file = None
         most_recent_time = None
@@ -34,8 +70,8 @@ def load_generations(model_id: str, task: str, gen_path: str = None, single_resp
         if not os.path.exists(metadata_path):
             raise FileNotFoundError(f"No metadata file found in {metadata_path}.")
 
-        print(f"Loading generations from {gen_path}")
-        print(f"Loading metadata from {metadata_path}")
+        # print(f"Loading generations from {gen_path}")
+        # print(f"Loading metadata from {metadata_path}")
 
         # Load metadata and extract task, dataset_path, and pretrained
         with open(metadata_path, 'r', encoding='utf-8') as f:
@@ -46,7 +82,8 @@ def load_generations(model_id: str, task: str, gen_path: str = None, single_resp
                 metadata = {
                     'task': task_config.get('task'),
                     'dataset_path': task_config.get('dataset_path'),
-                    'pretrained': task_config.get('metadata', {}).get('pretrained')
+                    'pretrained': task_config.get('metadata', {}).get('pretrained'),
+                    'timestamp': most_recent_time
                 }
 
 

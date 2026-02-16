@@ -1,0 +1,40 @@
+task: culture_daisy
+tag:
+  - open_generation
+dataset_path: schneiderkamplab/SDU-Daisy
+dataset_name: null
+output_type: generate_until
+test_split: train
+
+# Input prompt matching original dataset column names
+doc_to_text: |
+  Besvar spørgsmålet med kun det direkte svar, uden forklaring om hvorfor.
+  Regelsæt:
+  - Svar kun på dansk.
+  - Hvis svaret er i højde, svar i meter (m).
+  - Hvis svaret er i vægt, svar i kilogram (kg).
+  - Hvis svaret er om en størrelse, svar i centimeter (cm). Fx Hvor stort er maleriet Mona Lisa? Svar: 77 cm x 53 cm.
+  - Hvis svaret er en person angiv den måde de typisk bliver angivet på i danske tekster.
+
+  Spørgsmål: {{Question}}
+  Svar:
+
+# Dummy target (required but won't be used)
+doc_to_target: 0
+
+generation_kwargs:
+  max_gen_toks: 100
+  temperature: 0.0
+  do_sample: true
+
+# Use bypass metric to skip evaluation
+metric_list:
+  - metric: bypass
+
+metadata:
+  version: 1.0
+  description: "SDU-Daisy"
+  just_metrics:
+    - metric: exact_match
+      references_key: Answer
+      predictions_key: resps
