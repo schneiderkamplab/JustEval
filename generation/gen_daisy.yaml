@@ -16,9 +16,9 @@ doc_to_text: |
   - Hvis svaret er om en størrelse, svar i centimeter (cm). Fx Hvor stort er maleriet Mona Lisa? Svar: 77 cm x 53 cm.
   - Hvis svaret er en person angiv den måde de typisk bliver angivet på i danske tekster.
 
-  \n\nSpørgsmål: {question}\nSvar:"""
+  \n\nSpørgsmål: {{Question}}\nSvar:"""
 
-doc_to_target: "{{correct}}"
+doc_to_target: "{{Answer}}"
 
 generation_kwargs:
   max_gen_toks: 100
