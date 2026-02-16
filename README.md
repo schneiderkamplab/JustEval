@@ -1,5 +1,9 @@
 # JustEval
 
+<p align="center">
+  <img src="assets/simple_logo.png" alt="Description" width="300"/>
+</p>
+
 Simple tool for evaluating (for now) generation capabilities of LLMs in two distinct steps: generation and evaluation.
 
 ## Generation
