@@ -1,0 +1,9 @@
+# If true, forces regeneration of outputs even if they already exist.
+force: false
+
+models:
+  - name: meta-llama__meta-llama-3-8b-instruct
+  - name: google__gemma-3-12b-it
+
+tasks:
+  - name: culture_daisy
