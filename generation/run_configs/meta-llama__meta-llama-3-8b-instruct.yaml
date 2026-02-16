@@ -1,0 +1,27 @@
+# Model configuration
+model: vllm
+model_args:
+  pretrained: meta-llama/Meta-Llama-3-8B-Instruct
+  dtype: float16
+  tensor_parallel_size: 1
+
+# Task configuration
+include_path: ../task_configs
+tasks:
+- gec_dala
+- cls-gen_dala
+batch_size: 16
+device: cuda:0
+limit: 100
+
+# Output and logging
+output_path: ../outputs/
+log_samples: true
+predict_only: true
+
+# Generation settings (overrides task defaults)
+gen_kwargs:
+  until: ["\n"]  # Stop generation at newline
+
+# Other settings
+num_fewshot: 0

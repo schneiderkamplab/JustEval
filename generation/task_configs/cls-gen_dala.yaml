@@ -1,4 +1,4 @@
-task: binary_classification_generation
+task: cls-gen_dala
 dataset_path: giannor/dala
 dataset_name: null
 output_type: generate_until
@@ -36,3 +36,8 @@ metric_list:
 metadata:
   version: 1.0
   description: "DaLA generative"
+
+just_metrics:
+  - metric: gleu_reimp
+    references_key: text
+    predictions_key: resps

@@ -1,0 +1,46 @@
+task: gec_dala
+dataset_path: giannor/dala_gen_v2
+dataset_name: null
+output_type: generate_until
+training_split: train
+validation_split: val
+test_split: test
+
+# Input prompt matching original dataset column names
+# doc_to_text: |
+#   Givet følgende sætning på dansk, afgør om den er grammatisk korrekt eller ukorrekt.
+#   - Hvis den er ukorrekt, skal du outputte den rettede version.
+#   - Hvis den er korrekt, skal du outputte den originale sætning.
+#   - Output kun den rettede eller originale sætning — intet andet.
+
+#   Regler:
+#   - Svar kun på dansk.
+#   - Bevar samme formatering og store/små bogstaver som i den originale sætning.
+#   - Output ingen forklaring.
+#   - Sig ikke, om sætningen er korrekt eller ukorrekt.
+
+#   Sætning: {{corrupted}}
+#   Svar:
+
+
+doc_to_text: |
+  Forkert sætning på dansk: {{corrupted}}
+  
+  fast sætning:
+
+# Dummy target (required but won't be used)
+doc_to_target: 0
+
+generation_kwargs:
+  max_gen_toks: 100
+  temperature: 0.0
+  do_sample: true
+
+# Use bypass metric to skip evaluation
+metric_list:
+  - metric: bypass
+    aggregation: bypass
+
+metadata:
+  version: 1.0
+  description: "Grammatical Error Correction on DaLA dataset"
