@@ -1,0 +1,26 @@
+# Model configuration
+model: vllm
+model_args:
+  pretrained: google/gemma-3-12b-it
+
+# Task configuration
+include_path: ../task_configs
+tasks:
+- gec_dala
+- cls-gen_dala
+- culture_daisy
+batch_size: 16
+device: cuda:0
+limit: 100
+
+# Output and logging
+output_path: ../outputs/
+log_samples: true
+predict_only: true
+
+# Generation settings (overrides task defaults)
+gen_kwargs:
+  until: ["\n"]  # Stop generation at newline
+
+# Other settings
+num_fewshot: 0
