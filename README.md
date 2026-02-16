@@ -49,7 +49,15 @@ NOTE: part of the following documentation is based on lm-evaluation-harness libr
 - For task configuration file check [here](https://github.com/EleutherAI/lm-evaluation-harness/blob/main/docs/new_task_guide.md) and [here (advanced)](https://github.com/EleutherAI/lm-evaluation-harness/blob/main/docs/task_guide.md)
 - For run configuration file check [here](https://github.com/EleutherAI/lm-evaluation-harness/blob/main/docs/config_files.md)
 
-Example configuration files can be found in `generation/task_configs` and `generation/run_configs` directories.
+
+There 3 type of configuration files in JustEval:
+1. Task configuration files for defining datasets, tasks, prompts, custom generation setting and evaluation metrics used by that task (from lm-evaluation-harness)
+2. Run configuration files (one for each model) for defining which models to run, which tasks to run them on, generation settings and other execution parameters (from lm-evaluation-harness)
+3. JustConfig configuration files for easily listing which of the defined models and tasks to run for generation and/or evaluation in JustEval (custom to JustEval)
+
+Example configuration files can be found in `generation/task_configs` and `generation/run_configs` directories and in the root for JustConfig files.
+
+
 
 ### Task configuration file
 
