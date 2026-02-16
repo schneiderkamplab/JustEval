@@ -134,12 +134,12 @@ def run_evaluation(config_path: str):
                 try:
                     if is_custom:
                         # Call custom function from just_metrics module
-                        print(f"Running custom metric: {metric_name}")
+                        # print(f"Running custom metric: {metric_name}")
                         metric_func = getattr(just_metrics, metric_name)
                         results, metadata = metric_func(**params)
                     else:
                         # Call evaluate_hf_metric
-                        print(f"Running HuggingFace metric: {metric_name}")
+                        # print(f"Running HuggingFace metric: {metric_name}")
                         params['metric_name'] = metric_name
                         results, metadata = just_metrics.evaluate_hf_metric(**params)
                     

@@ -70,8 +70,8 @@ def load_generations(model_id: str, task: str, gen_path: str = None, single_resp
         if not os.path.exists(metadata_path):
             raise FileNotFoundError(f"No metadata file found in {metadata_path}.")
 
-        print(f"Loading generations from {gen_path}")
-        print(f"Loading metadata from {metadata_path}")
+        # print(f"Loading generations from {gen_path}")
+        # print(f"Loading metadata from {metadata_path}")
 
         # Load metadata and extract task, dataset_path, and pretrained
         with open(metadata_path, 'r', encoding='utf-8') as f:
