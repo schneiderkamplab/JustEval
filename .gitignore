@@ -1,8 +1,16 @@
+# IDE files
 .idea
 .vscode
+
+# Generation files to ignore
 generation/outputs/
 generation/dala_outputs_with_eval/
-ignore/
-evaluation/test.py
 generation/preprocess_targets_example.py
+
+# Evaluation files to ignore
+evaluation/test.py
 evaluation/__pycache__/
+
+# Other
+ignore/
+startenv.sh
