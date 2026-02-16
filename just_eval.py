@@ -97,14 +97,9 @@ def run_evaluation(config_path: str):
                 print("Warning: Task entry missing 'name' field, skipping.")
                 continue
             
-            print(f"\n{'='*80}")
-            print(f"Evaluating model: {model_name} on task: {task_name}")
-            print(f"{'='*80}\n")
-            
             # Check if outputs exist for this model-task pair
             if not check_existing_outputs(model_name, task_name, outputs_dir):
-                print(f"⊘ Skipping: No outputs found for model '{model_name}' on task '{task_name}'")
-                print(f"  Run generation first to create outputs.\n")
+                print(f"Skipped: {model_name} on {task_name} (outputs not found)")
                 continue
             
             # Load task configuration
@@ -115,8 +110,12 @@ def run_evaluation(config_path: str):
             # Get just_metrics from metadata from task config
             just_metrics_list = task_config.get('metadata', {}).get('just_metrics', [])
             if not just_metrics_list:
-                print(f"No metadata.just_metrics defined for task {task_name}, skipping.")
                 continue
+            
+            # Print headline only when we have outputs and metrics to run
+            print(f"\n{'='*80}")
+            print(f"Evaluating model: {model_name} on task: {task_name}")
+            print(f"{'='*80}\n")
             
             # Process each metric
             for metric_def in just_metrics_list:
