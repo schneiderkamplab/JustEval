@@ -8,7 +8,13 @@ Simple tool for evaluating (for now) generation capabilities of LLMs in two dist
 
 ## Motivation
 
-The motivation behind JustEval is to have a simple, flexible and customizable tool for evaluating LLMs on various tasks and datasets. We wanted to separate generation from evaluation to allow evaluations to be run without having to generate outputs every time, making it both faster to evaluate models. We also wanted to have easy customization of evaluation metrics, while relying also on Hugging Face metrics. JustEval is built on top of the lm-evaluation-harness library, which provides a lot of flexibility in defining tasks and generation settings through YAML configuration files (however it does not separates generation from evaluation). JustEval extends this by adding its own evaluation system that can compute any Hugging Face metric or custom evaluation function implemented in `evaluation/just_metrics.py` on the generated outputs.
+The motivation behind JustEval is to have a simple, flexible and customizable tool for evaluating LLMs on various tasks and datasets. 
+
+Our main goal is to separate generation from evaluation to allow evaluations to be run without having to generate outputs every time, making it faster to re-evaluate models in cases where the task (e.g. data or prompt) don't change but metrics or other aspects of the evaluation do. We also wanted to have easy customization of evaluation metrics, while relying also on Hugging Face metrics. 
+
+JustEval is built on top of the lm-evaluation-harness library, which provides a lot of flexibility in defining tasks and generation settings through YAML configuration files (however it does not separates generation from evaluation). 
+
+JustEval extends this by adding its own evaluation system that can compute any Hugging Face metric or easily craftable custom evaluation function implemented in `evaluation/just_metrics.py` on the generated outputs.
 
 ## Generation
 
