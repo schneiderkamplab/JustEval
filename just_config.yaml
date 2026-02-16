@@ -3,10 +3,9 @@ force: false
 
 models:
   - name: meta-llama__meta-llama-3-8b-instruct
-  - name: gemma-3-12b-it # Dummy model for which there is no run config, just to test missing model
+  - name: google__gemma-3-12b-it
 
 tasks:
   - name: gec_dala
   - name: cls-gen_dala
   - name: culture_daisy
-  - name: non_existing_task # Dummy task for which there is no config, just to test missing task
