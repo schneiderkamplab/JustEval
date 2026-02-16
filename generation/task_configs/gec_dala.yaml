@@ -44,3 +44,12 @@ metric_list:
 metadata:
   version: 1.0
   description: "Grammatical Error Correction on DaLA dataset"
+  just_metrics:
+    - metric: gleu_reimp
+      custom: true
+      sources_key: corrupted
+      references_key: original
+      predictions_key: resps
+    - metric: exact_match
+      references_key: original
+      predictions_key: resps
