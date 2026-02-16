@@ -12,5 +12,6 @@ evaluation/test.py
 evaluation/__pycache__/
 
 # Other
+metric_results/
 ignore/
 startenv.sh
