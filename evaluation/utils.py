@@ -79,10 +79,14 @@ def load_generations(model_id: str, task: str, gen_path: str = None, single_resp
             # Get the task config
             if task in metadata_json.get('configs', {}):
                 task_config = metadata_json['configs'][task]
+
+                # Look first for 'pretrained' then 'model' inside task_config metadata, this changes based on the use of vllm/hf or API
+                pretrained = task_config.get('metadata', {}).get('pretrained') or task_config.get('metadata', {}).get('model')
+
                 metadata = {
                     'task': task_config.get('task'),
                     'dataset_path': task_config.get('dataset_path'),
-                    'pretrained': task_config.get('metadata', {}).get('pretrained'),
+                    'pretrained': pretrained,
                     'timestamp': most_recent_time
                 }
 
