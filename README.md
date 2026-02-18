@@ -156,18 +156,22 @@ The run configuration file controls how models are executed. It specifies the mo
 
 #### Model Configuration
 
-- `model`: The backend to use for model execution::
+- `model`: The backend to use for model execution, possible values:
   - `hf`: Hugging Face Transformers backend
   - `vllm`: vLLM backend
-  - `api`: API-based models (e.g., OpenAI, Anthropic, LM Studio)
+  - api: API-based models (e.g., OpenAI, Anthropic, LM Studio). Some common values (local/openai) are `local-completions`, `openai-completions`. For more details on possible values look this [lm-evaluation-harness documentation section](https://github.com/EleutherAI/lm-evaluation-harness/?tab=readme-ov-file#model-apis-and-inference-servers).
 
-- `model_args`: Configuration string for the model. Format is comma-separated key=value pairs e.g.:
-  - `pretrained`: Model identifier from Hugging Face
-  - `dtype`: Data type for model weights (e.g., `float16`, `bfloat16`, `float32`)
-  - `tensor_parallel_size`: Number of GPUs for tensor parallelism
-  - `gpu_memory_utilization`: Fraction of GPU memory to use (vLLM only)
-  - Other backend-specific arguments
-  - Example:
+`model_args` formatting/paramaters varies among API and local backends 
+
+A typical setting for local backends (vLLM or Hugging Face):
+  - `model_args`: Configuration paramaters for the model. e.g.:
+    - `pretrained`: Model identifier from Hugging Face
+    - `dtype`: Data type for model weights (e.g., `float16`, `bfloat16`, `float32`)
+    - `tensor_parallel_size`: Number of GPUs for tensor parallelism
+    - `gpu_memory_utilization`: Fraction of GPU memory to use (vLLM only)
+    - Other backend-specific arguments
+
+Example:
 
 ``` yaml
 model: vllm
@@ -176,6 +180,26 @@ model_args:
   dtype: float16
   tensor_parallel_size: 1
 ```
+
+A typical setting for API-based backends:
+  - `model_args`:
+    - `model`:  Model name or identifier in the API (e.g., `gpt-4`, `gemma-3-12b-it`, etc.)
+    - `base_url`: Base URL for the API endpoint (e.g., `https://api.openai.com/v1/completions`)
+    - `tokenizer`: Tokenizer used (e.g. openai/gpt-oss-120b)
+    - `tokenizer_backend`: Tokenizer backend (e.g. `huggingface`)
+
+Example: 
+
+``` yaml
+model: openai-completions
+model_args:
+  model: your-model
+  base_url: http://api.your-api.com:8000/v1/completions
+  tokenizer: openai/gpt-oss-120b
+  tokenizer_backend: huggingface
+```
+
+
 
 #### Task Configuration
 
@@ -256,7 +280,7 @@ An example of a JustConfig configuration file can be found in `just_config.yaml`
 Once you correctly defined model and task configuration files under `generation/run_configs` and `generation/task_configs` directories and you have set up the JustConfig configuration file to specify which models and tasks to run, you can run generations with the following command:
 
 ```bash
-python just_generate.py --config <just_config_file>
+python just_generate.py <just_config_file>
 ```
 
 This will generate outputs (using lm-evaluation-harness) for all combinations of models and tasks listed in the JustConfig configuration file specified by `--config` flag. The generated outputs will be saved in the folder specified by `output_path` in each model's run configuration file (according to lm-evaluation-harness standards).
@@ -266,7 +290,7 @@ This will generate outputs (using lm-evaluation-harness) for all combinations of
 To run evaluations on the generated outputs, you can use the same JustConfig configuration file used for generations or if you want a subset of the generations you can create a new JustConfig configuration file listing only the models and tasks you want to evaluate. Once you have the JustConfig configuration file ready, you can run evaluations with the following command:
 
 ```bash
-python just_eval.py --config <just_config_file>
+python just_eval.py <just_config_file>
 ```
 
 This will compute the evaluation metrics specified in each task configuration file for all combinations of models and tasks listed in the JustConfig configuration file specified by `--config` flag. The results will be saved in the `metric_results` folder. Example saved output
